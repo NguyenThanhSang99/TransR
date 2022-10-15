@@ -1,0 +1,16 @@
+id	label
+0	treatment
+1	disease
+2	pet_number
+3	symptom
+4	age_group
+5	breed
+6	main_category
+7	age
+8	weight
+9	treatment_code
+10	gender
+11	prescription
+12	prescription_code
+13	species
+14	memo
