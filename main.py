@@ -5,10 +5,12 @@ from openke.module.strategy import NegativeSampling
 from openke.data import TrainDataLoader, TestDataLoader
 
 # dataloader for training
+n_batch = 100
+print(n_batch)
 train_dataloader = TrainDataLoader(
-	in_path = "./data/FB15k/", 
-	nbatches = 100,
-	threads = 8, 
+	in_path = "./data/FB15K237/",
+	nbatches = n_batch,
+	threads = 8,
 	sampling_mode = "normal", 
 	bern_flag = 1, 
 	filter_flag = 1, 
@@ -17,7 +19,7 @@ train_dataloader = TrainDataLoader(
 
 # dataloader for test
 test_dataloader = TestDataLoader(
-	in_path = "./data/FB15k/",
+	in_path = "./data/FB15K237/",
 	sampling_mode = 'link')
 
 # define the model
@@ -56,7 +58,7 @@ transe.save_parameters("./result/transr_transe.json")
 
 # train transr
 transr.set_parameters(parameters)
-trainer = Trainer(model = model_r, data_loader = train_dataloader, train_times = 1000, alpha = 1.0, use_gpu = True)
+trainer = Trainer(model = model_r, data_loader = train_dataloader, train_times = 20, alpha = 1.0, use_gpu = True)
 trainer.run()
 transr.save_checkpoint('./checkpoint/transr.ckpt')
 

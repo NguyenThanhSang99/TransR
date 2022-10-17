@@ -34,7 +34,9 @@ class Trainer(object):
 		self.weight_decay = 0
 		self.alpha = alpha
 
-		self.model = model
+		self.model = model.cuda()
+		if torch.cuda.device_count() > 1:
+			self.model = nn.DataParallel(self.model, device_ids=None)
 		self.data_loader = data_loader
 		self.use_gpu = use_gpu
 		self.save_steps = save_steps
@@ -49,6 +51,7 @@ class Trainer(object):
 			'batch_y': self.to_var(data['batch_y'], self.use_gpu),
 			'mode': data['mode']
 		})
+		loss = loss.mean()
 		loss.backward()
 		self.optimizer.step()		 
 		return loss.item()
@@ -88,6 +91,8 @@ class Trainer(object):
 		
 		training_range = tqdm(range(self.train_times))
 		for epoch in training_range:
+			if torch.cuda.is_available():
+				torch.cuda.synchronize()
 			res = 0.0
 			for data in self.data_loader:
 				loss = self.train_one_step(data)
@@ -98,6 +103,8 @@ class Trainer(object):
 				print("Epoch %d has finished, saving..." % (epoch))
 				self.model.save_checkpoint(os.path.join(self.checkpoint_dir + "-" + str(epoch) + ".ckpt"))
 
+			if torch.cuda.is_available():
+				torch.cuda.synchronize()
 	def set_model(self, model):
 		self.model = model
 
