@@ -1,4 +1,3 @@
-head	relation	tail
 diagnosis_1	pet_number	pet_156-1783
 pet_156-1783	species	Canine
 pet_156-1783	breed	Miniature Pinscher

@@ -1,4 +1,3 @@
-id	label
 0	pet_156-5817
 1	disease_298
 2	TREATTX-0000-00507

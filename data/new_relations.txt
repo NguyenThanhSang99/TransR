@@ -1,0 +1,16 @@
+15
+treatment	0
+disease	1
+pet_number	2
+symptom	3
+age_group	4
+breed	5
+main_category	6
+age	7
+weight	8
+treatment_code	9
+gender	10
+prescription	11
+prescription_code	12
+species	13
+memo	14
